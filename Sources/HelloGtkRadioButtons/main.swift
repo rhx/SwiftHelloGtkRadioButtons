@@ -3,7 +3,7 @@ import GLib
 import Gtk
 
 let status = Application.run { app in
-    var window = ApplicationWindowRef(application: app)
+    let window = ApplicationWindowRef(application: app)
     window.title = "Hello, Radio Buttons"
     window.setDefaultSize(width: 160, height: 80)
 
