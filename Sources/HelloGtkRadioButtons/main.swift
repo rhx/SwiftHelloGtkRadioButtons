@@ -2,7 +2,12 @@ import CGLib
 import GLib
 import Gtk
 
-let status = Application.run { app in
+// This array of widgets is only needed in this simple example
+// to ensure that the UI elements will stick around, even when
+// the activation handler has finished.
+var widgets = Array<Widget>()
+
+let status = Application.run(startupHandler: nil) { app in
     let window = ApplicationWindowRef(application: app)
     window.title = "Hello, Radio Buttons"
     window.setDefaultSize(width: 160, height: 80)
@@ -25,15 +30,21 @@ let status = Application.run { app in
     //
     // create right button group using convenience constructor
     //
-    let buttons = RadioButton.groupLabeled("Right 1", "Right 2")
-    rbox.add(widgets: buttons)
+    widgets = RadioButton.groupLabeled("Right 1", "Right 2")
+    rbox.add(widgets: widgets)
 
     window.showAll()
+
+    // keep the widgets around even after this function has returned
+    widgets += [hbox, lbox, rbox]
+    widgets += [button1, button2]
 }
 
-guard let status = status else {
-    fatalError("Could not create Application")
-}
-guard status == 0 else {
-    fatalError("Application exited with status \(status)")
+withExtendedLifetime(widgets) {
+    guard let status = status else {
+        fatalError("Could not create Application")
+    }
+    guard status == 0 else {
+        fatalError("Application exited with status \(status)")
+    }
 }
