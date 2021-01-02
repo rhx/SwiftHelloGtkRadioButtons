@@ -15,25 +15,25 @@ let status = Application.run(startupHandler: nil) { app in
     let hbox = Box(orientation: .horizontal, spacing: 10)
     let lbox = Box(orientation: .vertical, spacing: 0)
     let rbox = Box(orientation: .vertical, spacing: 0)
-    window.add(widget: hbox)
-    hbox.add(widget: lbox)
-    hbox.add(widget: rbox)
+    window.set(child: hbox)
+    hbox.append(child: lbox)
+    hbox.append(child: rbox)
 
     //
     // create left hand side buttons manually, gtk-style
     //
-    let button1 = RadioButton(label: "Left 1")
-    let button2 = RadioButton(group: button1.group, label: "Left 2")
-    lbox.add(widget: button1)
-    lbox.add(widget: button2)
+    let button1 = CheckButton(label: "Left 1")
+    let button2 = CheckButton(group: button1, label: "Left 2")
+    lbox.append(child: button1)
+    lbox.append(child: button2)
 
     //
     // create right button group using convenience constructor
     //
-    widgets = RadioButton.groupLabeled("Right 1", "Right 2")
-    rbox.add(widgets: widgets)
+    widgets = CheckButton.groupLabeled("Right 1", "Right 2")
+    rbox.append(children: widgets)
 
-    window.showAll()
+    window.present()
 
     // keep the widgets around even after this function has returned
     widgets += [hbox, lbox, rbox]
