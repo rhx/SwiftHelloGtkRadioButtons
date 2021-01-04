@@ -23,7 +23,8 @@ let status = Application.run(startupHandler: nil) { app in
     // create left hand side buttons manually, gtk-style
     //
     let button1 = CheckButton(label: "Left 1")
-    let button2 = CheckButton(group: button1, label: "Left 2")
+    let button2 = CheckButton(label: "Left 2")
+    button2.set(group: button1)
     lbox.append(child: button1)
     lbox.append(child: button2)
 
@@ -33,7 +34,7 @@ let status = Application.run(startupHandler: nil) { app in
     widgets = CheckButton.groupLabeled("Right 1", "Right 2")
     rbox.append(children: widgets)
 
-    window.present()
+    window.show()
 
     // keep the widgets around even after this function has returned
     widgets += [hbox, lbox, rbox]
