@@ -6,8 +6,13 @@ import Gtk
 // to ensure that the UI elements will stick around, even when
 // the activation handler has finished.
 var widgets = Array<Widget>()
+var appActionEntries = [
+    GActionEntry(name: g_strdup("quit"), activate: { Gtk.ApplicationRef(gpointer: $2).quit() }, parameter_type: nil, state: nil, change_state: nil, padding: (0, 0, 0))
+]
 
-let status = Application.run(startupHandler: nil) { app in
+let status = Application.run(startupHandler: { app in
+    app.addAction(entries: &appActionEntries, nEntries: appActionEntries.count, userData: app.ptr)
+}, activationHandler: { app in
     let window = ApplicationWindowRef(application: app)
     window.title = "Hello, Radio Buttons"
     window.setDefaultSize(width: 160, height: 80)
@@ -39,7 +44,7 @@ let status = Application.run(startupHandler: nil) { app in
     // keep the widgets around even after this function has returned
     widgets += [hbox, lbox, rbox]
     widgets += [button1, button2]
-}
+})
 
 withExtendedLifetime(widgets) {
     guard let status = status else {
