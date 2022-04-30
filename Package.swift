@@ -1,14 +1,15 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.6
 
 import PackageDescription
 
 let package = Package(
     name: "HelloGtkRadioButtons",
     dependencies: [
-        .package(name: "gir2swift", url: "https://github.com/rhx/gir2swift.git", .branch("main")),
-        .package(name: "Gtk", url: "https://github.com/rhx/SwiftGtk.git", .branch("gtk4")),
+        .package(url: "https://github.com/rhx/SwiftGtk.git", branch: "gtk4-monorepo"),
     ],
     targets: [
-        .target(name: "HelloGtkRadioButtons", dependencies: ["Gtk"]),
+        .executableTarget(name: "HelloGtkRadioButtons", dependencies: [
+            .product(name: "Gtk", package: "SwiftGtk"),
+        ]),
     ]
 )
