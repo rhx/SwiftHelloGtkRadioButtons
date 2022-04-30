@@ -5,7 +5,7 @@ import PackageDescription
 let package = Package(
     name: "HelloGtkRadioButtons",
     dependencies: [
-        .package(url: "https://github.com/rhx/SwiftGtk.git", branch: "gtk4-monorepo"),
+        .package(url: "https://github.com/rhx/SwiftGtk.git", branch: "gtk4"),
     ],
     targets: [
         .executableTarget(name: "HelloGtkRadioButtons", dependencies: [
